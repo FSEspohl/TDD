@@ -1,4 +1,4 @@
-package at.itkolleg.ase.tdd.kino;
+package at.hakimst.tdd.kino;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Vorstellung {
 
-    private final at.itkolleg.ase.tdd.kino.KinoSaal saal;
+    private final KinoSaal saal;
 
-    private final at.itkolleg.ase.tdd.kino.Zeitfenster zeitfenster;
+    private final Zeitfenster zeitfenster;
 
     private final LocalDate datum;
 
@@ -16,9 +16,9 @@ public class Vorstellung {
 
     private final float preis;
 
-    private final List<at.itkolleg.ase.tdd.kino.Ticket> tickets = new LinkedList<>();
+    private final List<Ticket> tickets = new LinkedList<>();
 
-    public Vorstellung(at.itkolleg.ase.tdd.kino.KinoSaal saal, at.itkolleg.ase.tdd.kino.Zeitfenster zeitfenster, LocalDate datum, String film, float preis) {
+    public Vorstellung(KinoSaal saal, Zeitfenster zeitfenster, LocalDate datum, String film, float preis) {
         this.saal = saal;
         this.zeitfenster = zeitfenster;
         this.datum = datum;
@@ -30,11 +30,11 @@ public class Vorstellung {
         return film;
     }
 
-    public at.itkolleg.ase.tdd.kino.KinoSaal getSaal() {
+    public KinoSaal getSaal() {
         return saal;
     }
 
-    public at.itkolleg.ase.tdd.kino.Zeitfenster getZeitfenster() {
+    public Zeitfenster getZeitfenster() {
         return zeitfenster;
     }
 
@@ -42,7 +42,7 @@ public class Vorstellung {
         return datum;
     }
 
-    at.itkolleg.ase.tdd.kino.Ticket kaufeTicket(char reihe, int platz, float geld) {
+    Ticket kaufeTicket(char reihe, int platz, float geld) {
         if (geld < preis) {
             throw new IllegalArgumentException("Nicht ausreichend Geld.");
         }
@@ -52,7 +52,7 @@ public class Vorstellung {
         if (tickets.stream().anyMatch(t -> t.getReihe() == reihe && t.getPlatz() == platz)) {
             throw new IllegalStateException("Der Platz " + reihe + platz + " ist bereits belegt.");
         }
-        at.itkolleg.ase.tdd.kino.Ticket ticket = new at.itkolleg.ase.tdd.kino.Ticket(saal.getName(), zeitfenster, datum, reihe, platz);
+        Ticket ticket = new Ticket(saal.getName(), zeitfenster, datum, reihe, platz);
         tickets.add(ticket);
         return ticket;
     }

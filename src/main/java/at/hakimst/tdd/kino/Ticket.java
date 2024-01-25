@@ -1,4 +1,4 @@
-package at.itkolleg.ase.tdd.kino;
+package at.hakimst.tdd.kino;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,7 @@ public class Ticket {
 
     private final String saal;
 
-    private final at.itkolleg.ase.tdd.kino.Zeitfenster zeitfenster;
+    private final Zeitfenster zeitfenster;
 
     private final LocalDate datum;
 
@@ -14,7 +14,7 @@ public class Ticket {
 
     private final int platz;
 
-    public Ticket(String saal, at.itkolleg.ase.tdd.kino.Zeitfenster zeitfenster, LocalDate datum, char reihe, int platz) {
+    public Ticket(String saal, Zeitfenster zeitfenster, LocalDate datum, char reihe, int platz) {
         this.saal = saal;
         this.zeitfenster = zeitfenster;
         this.datum = datum;
@@ -26,7 +26,7 @@ public class Ticket {
         return saal;
     }
 
-    public at.itkolleg.ase.tdd.kino.Zeitfenster getZeitfenster() {
+    public Zeitfenster getZeitfenster() {
         return zeitfenster;
     }
 

@@ -1,13 +1,9 @@
-package at.itkolleg.ase.tdd.kino;
+package at.hakimst.tdd.kino;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * Dieses Beispiel stammt aus https://training.cherriz.de/cherriz-training/1.0.0/testen/junit5.html
- */
-public class App 
+public class Main
 {
     public static void main( String[] args )
     {

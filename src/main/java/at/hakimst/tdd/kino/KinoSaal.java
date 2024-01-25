@@ -1,4 +1,4 @@
-package at.itkolleg.ase.tdd.kino;
+package at.hakimst.tdd.kino;
 
 import java.util.Map;
 

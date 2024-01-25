@@ -1,4 +1,4 @@
-package at.itkolleg.ase.tdd.kino;
+package at.hakimst.tdd.kino;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AppTest {
 
     @Mock
-    private at.itkolleg.ase.tdd.kino.KinoSaal kinosaalMock; //Mocking Stub zum Testen
+    private KinoSaal kinosaalMock; //Mocking Stub zum Testen
 
-    private at.itkolleg.ase.tdd.kino.KinoSaal kinosaalOriginal;
+    private KinoSaal kinosaalOriginal;
 
     @BeforeEach
     void setup() {
@@ -33,7 +33,7 @@ public class AppTest {
         map.put('A', 10);
         map.put('B', 10);
         map.put('C', 15);
-        kinosaalOriginal = new at.itkolleg.ase.tdd.kino.KinoSaal("KS2", map);
+        kinosaalOriginal = new KinoSaal("KS2", map);
     }
 
     @Test
