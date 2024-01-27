@@ -1,5 +1,7 @@
 package at.hakimst.tdd.kino;
 
+import at.hakimst.tdd.kino.domain.KinoSaal;
+
 import java.util.HashMap;
 import java.util.Map;
 

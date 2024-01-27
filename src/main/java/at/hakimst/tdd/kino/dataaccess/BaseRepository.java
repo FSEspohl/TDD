@@ -1,4 +1,4 @@
-package at.hakimst.tdd.kino.repos;
+package at.hakimst.tdd.kino.dataaccess;
 
 import java.util.List;
 import java.util.Optional;

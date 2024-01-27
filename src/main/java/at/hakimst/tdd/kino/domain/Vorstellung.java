@@ -1,9 +1,12 @@
-package at.hakimst.tdd.kino;
+package at.hakimst.tdd.kino.domain;
+
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
+@Getter
 public class Vorstellung {
 
     private final KinoSaal saal;
@@ -26,25 +29,9 @@ public class Vorstellung {
         this.preis = preis;
     }
 
-    public String getFilm() {
-        return film;
-    }
-
-    public KinoSaal getSaal() {
-        return saal;
-    }
-
-    public Zeitfenster getZeitfenster() {
-        return zeitfenster;
-    }
-
-    public LocalDate getDatum() {
-        return datum;
-    }
-
-    Ticket kaufeTicket(char reihe, int platz, float geld) {
+    public Ticket kaufeTicket(char reihe, int platz, float geld) {
         if (geld < preis) {
-            throw new IllegalArgumentException("Nicht ausreichend Geld.");
+            throw new IllegalArgumentException("Nicht ausreichend Geld, min. " + preis);
         }
         if (!saal.pruefePlatz(reihe, platz)) {
             throw new IllegalArgumentException("Der Platz " + reihe + platz + " existiert nicht.");
@@ -52,6 +39,8 @@ public class Vorstellung {
         if (tickets.stream().anyMatch(t -> t.getReihe() == reihe && t.getPlatz() == platz)) {
             throw new IllegalStateException("Der Platz " + reihe + platz + " ist bereits belegt.");
         }
+
+        // erstelle Ticket
         Ticket ticket = new Ticket(saal.getName(), zeitfenster, datum, reihe, platz);
         tickets.add(ticket);
         return ticket;
@@ -59,10 +48,9 @@ public class Vorstellung {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Vorstellung)) {
+        if (!(obj instanceof Vorstellung otherV)) {
             return false;
         }
-        Vorstellung otherV = (Vorstellung) obj;
         return saal.equals(otherV.getSaal()) && zeitfenster == otherV.getZeitfenster() && datum.isEqual(otherV.getDatum());
     }
 
