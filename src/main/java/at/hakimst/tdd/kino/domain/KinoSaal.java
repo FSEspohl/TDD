@@ -15,6 +15,10 @@ public class KinoSaal extends BaseEntity {
 
     private final Map<Character, Integer> reihen;
 
+    public int getPlatze() {
+        return reihen.values().stream().reduce(0, Integer::sum);
+    }
+
     public boolean pruefePlatz(char reihe, int platz) {
         Integer plaetze = reihen.get(reihe);
 

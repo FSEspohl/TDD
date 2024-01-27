@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class KinoSaalTest {
 
@@ -26,6 +27,7 @@ public class KinoSaalTest {
         map1.put('C', 9);
         KinoSaal saal2 = new KinoSaal("KS2", map2);
 
-        assertEquals(saal1, saal2);
+        assertEquals(saal1, saal1);
+        assertNotEquals(saal1, saal2);
     }
 }

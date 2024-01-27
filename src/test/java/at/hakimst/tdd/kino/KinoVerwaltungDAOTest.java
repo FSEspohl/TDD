@@ -1,8 +1,6 @@
 package at.hakimst.tdd.kino;
 
-import at.hakimst.tdd.kino.dataaccess.KinoSaalDAO;
-import at.hakimst.tdd.kino.dataaccess.TicketDAO;
-import at.hakimst.tdd.kino.dataaccess.VorstellungDAO;
+import at.hakimst.tdd.kino.dataaccess.*;
 import at.hakimst.tdd.kino.domain.KinoSaal;
 import at.hakimst.tdd.kino.domain.Ticket;
 import at.hakimst.tdd.kino.domain.Vorstellung;
@@ -21,24 +19,27 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 
-@ExtendWith(MockitoExtension.class)
-public class KinoVerwaltungOhneDAOTest {
+public class KinoVerwaltungDAOTest {
 
-    @Mock
-    private KinoSaalDAO kinoSaalDAO; // Mocking Stub zum Testen
+    private KinoSaalDAO kinoSaalDAO;
 
-    @Mock
-    private TicketDAO ticketDAO; // Mocking Stub zum Testen
+    private TicketDAO ticketDAO;
 
-    @Mock
-    private VorstellungDAO vorstellungDAO; // Mocking Stub zum Testen
+    private VorstellungDAO vorstellungDAO;
 
     private KinoVerwaltung kinoVerwaltung;
 
     private KinoSaal kinoSaal;
 
+    private Vorstellung vorstellung;
+
     @BeforeEach
     void setup() {
+
+        kinoSaalDAO = new KinoSaalDAOListImpl();
+        vorstellungDAO = new VorstellungDAOListImpl();
+        ticketDAO = new TicketDAOListImpl();
+
         kinoVerwaltung = new KinoVerwaltung(kinoSaalDAO, vorstellungDAO, ticketDAO);
 
         Map<Character, Integer> map1 = new HashMap<>();
@@ -46,31 +47,26 @@ public class KinoVerwaltungOhneDAOTest {
         map1.put('B', 7);
         map1.put('C', 9);
         kinoSaal = new KinoSaal("KS1", map1);
-        kinoSaal.setId(1L);
+        kinoSaalDAO.insert(kinoSaal);
+
+        vorstellung = new Vorstellung(kinoSaal, Zeitfenster.ABEND, LocalDate.of(2024, 1, 8), "Herr der Ringe",10);
+        vorstellung = vorstellungDAO.insert(vorstellung).get();
     }
 
-
     @Test
-    void testFreiePlaetzeMock() {
-
-        Vorstellung vorstellung = new Vorstellung(kinoSaal, Zeitfenster.ABEND, LocalDate.of(2024, 1, 8), "Herr der Ringe",10);
-
-        Mockito.when(kinoSaalDAO.getById(anyLong())).thenReturn(Optional.of(kinoSaal));
-
-        List<Ticket> tickets = new ArrayList<>();
-        tickets.add(new Ticket(vorstellung, 'A', 1));
-        tickets.add(new Ticket(vorstellung, 'A', 2));
-        tickets.add(new Ticket(vorstellung, 'A', 3));
-        Mockito.when(ticketDAO.getAllByVorstellung(vorstellung)).thenReturn(tickets);
+    void testFreiePlaetze() {
+        ticketDAO.insert(new Ticket(vorstellung, 'A', 1));
+        ticketDAO.insert(new Ticket(vorstellung, 'A', 2));
+        ticketDAO.insert(new Ticket(vorstellung, 'A', 3));
 
         int freiePlaetze = kinoVerwaltung.freiePlaetze(vorstellung);
 
         int plaetzeImSaal = kinoSaal.getPlatze();
-        assertEquals(plaetzeImSaal - tickets.size(), freiePlaetze);
+        assertEquals(plaetzeImSaal - 3, freiePlaetze);
     }
 
     @Test
-    void testKaufeTicketMock() {
+    void testKaufeTicket() {
 
         // todo: implement
 
