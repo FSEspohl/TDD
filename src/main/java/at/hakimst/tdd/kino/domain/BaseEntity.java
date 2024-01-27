@@ -5,6 +5,9 @@ import at.hakimst.tdd.kino.exceptions.InvalidValueException;
 public abstract class BaseEntity {
     private Long id;
 
+    public BaseEntity() {
+    }
+
     public BaseEntity(Long id) {
         setId(id);
     }
@@ -19,12 +22,5 @@ public abstract class BaseEntity {
         } else {
             throw new InvalidValueException("ID muss größer gleich 0 sein!");
         }
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "id=" + id +
-                '}';
     }
 }

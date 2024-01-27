@@ -4,20 +4,18 @@ import at.hakimst.tdd.kino.domain.Zeitfenster;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
-public class Ticket {
-    private String saal;
+@ToString
+public class Ticket extends BaseEntity {
 
-    private Zeitfenster zeitfenster;
-
-    private LocalDate datum;
+    private Vorstellung vorstellung;
 
     private char reihe;
 
     private int platz;
-
 }

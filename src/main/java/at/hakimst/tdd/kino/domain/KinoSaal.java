@@ -2,12 +2,14 @@ package at.hakimst.tdd.kino.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Map;
 
 @Getter
 @AllArgsConstructor
-public class KinoSaal {
+@ToString
+public class KinoSaal extends BaseEntity {
 
     private final String name;
 

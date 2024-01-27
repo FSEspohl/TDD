@@ -1,14 +1,13 @@
 package at.hakimst.tdd.kino.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
-import java.util.List;
 
 @Getter
-public class Vorstellung {
-
+@ToString
+public class Vorstellung extends BaseEntity {
     private final KinoSaal saal;
 
     private final Zeitfenster zeitfenster;
@@ -19,9 +18,8 @@ public class Vorstellung {
 
     private final float preis;
 
-    private final List<Ticket> tickets = new LinkedList<>();
-
-    public Vorstellung(KinoSaal saal, Zeitfenster zeitfenster, LocalDate datum, String film, float preis) {
+    public Vorstellung(Long id, KinoSaal saal, Zeitfenster zeitfenster, LocalDate datum, String film, float preis) {
+        super(id);
         this.saal = saal;
         this.zeitfenster = zeitfenster;
         this.datum = datum;
@@ -29,21 +27,12 @@ public class Vorstellung {
         this.preis = preis;
     }
 
-    public Ticket kaufeTicket(char reihe, int platz, float geld) {
-        if (geld < preis) {
-            throw new IllegalArgumentException("Nicht ausreichend Geld, min. " + preis);
-        }
-        if (!saal.pruefePlatz(reihe, platz)) {
-            throw new IllegalArgumentException("Der Platz " + reihe + platz + " existiert nicht.");
-        }
-        if (tickets.stream().anyMatch(t -> t.getReihe() == reihe && t.getPlatz() == platz)) {
-            throw new IllegalStateException("Der Platz " + reihe + platz + " ist bereits belegt.");
-        }
-
-        // erstelle Ticket
-        Ticket ticket = new Ticket(saal.getName(), zeitfenster, datum, reihe, platz);
-        tickets.add(ticket);
-        return ticket;
+    public Vorstellung(KinoSaal saal, Zeitfenster zeitfenster, LocalDate datum, String film, float preis) {
+        this.saal = saal;
+        this.zeitfenster = zeitfenster;
+        this.datum = datum;
+        this.film = film;
+        this.preis = preis;
     }
 
     @Override
