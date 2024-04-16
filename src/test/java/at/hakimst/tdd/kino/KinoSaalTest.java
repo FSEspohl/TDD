@@ -29,5 +29,6 @@ public class KinoSaalTest {
 
         assertEquals(saal1, saal1);
         assertNotEquals(saal1, saal2);
+
     }
 }
